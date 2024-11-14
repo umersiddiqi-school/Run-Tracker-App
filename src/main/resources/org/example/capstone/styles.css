@@ -1,0 +1,27 @@
+/* Sidebar styling */
+.sidebar {
+    -fx-background-color: #333;
+    -fx-padding: 10px;
+}
+
+.sidebar button {
+    -fx-background-color: #555;
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+    -fx-max-width: Infinity;
+}
+
+.sidebar button:hover {
+    -fx-background-color: #777;
+}
+
+/* Top section styling */
+.top-section {
+    -fx-background-color: #4CAF50;
+    -fx-padding: 10px;
+}
+
+.top-section label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
