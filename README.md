@@ -11,6 +11,8 @@ Computer Science Advanced Programming Capstone Project
  * [How it Works](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#how-it-works)
 
 ## Summary
+
+The RunnerUP! Application is a comprehensive application designed to allow users to get ahead of their fitness goals. RunnerUP! was designed as the capstone project of the Advanced Programming class by five student programmers. RunnerUP! allows users to set personal running goals, view their historical data, and track their progress. RunnerUP! additionally provides a user insight into their running analytics and offers intuitive fitness recommendations, allowing for a comprehensive running experience.
 ## Technologies
 * **Intellij IDEA** primary IDE
 * **Java** JDK version 22
@@ -68,6 +70,55 @@ Upon running the applications, users are displayed a splash screen featuring the
 [Insert image here with register page]
 
 [Update here regarding specific methods once they are finished]
+
+### Home Page
+
+[Insert image here with home page]
+
+Once the user has logged in, the main window appears with a sidebar to navigate to the BMI Calculator, Progress Tracker, Health Analysis, and Settings pages.
+
+The window uses several UI elements such as a BorderPane, buttons, HBoxes, VBoxes, and Labels.
+
+### BMI Calculator Page
+
+[Insert Image with BMI Calculator page]
+
+The user may navigate to the BMI Calculator page from the home page. In the BMI Calculator page, the user can input their weight and height to calculate their BMI. 
+
+
+The **calculateBMI** method retrieves the data entered in the corresponding textfields to calculate the users BMI, and then displays it on the screen. Additionally calls the **updateBMIHistoryChart** method.
+
+The **updateBMIHistoryChart** method updates the LineChart with the new data. Once the calculate BMI button is clicked, the **calculateBMI** method displays the user's BMI and update's the BMI history chart using the **updateBMIHistoryChart()** method.
+
+### Health Analysis Page
+
+[Insert Image with Health Analysis Page]
+
+
+In the Health Analysis Page, users can choose to have their running data evaluated, and receieve recommendations regarding what types of runs they should focus on.
+
+
+[Update here regarding specific methods once they are finished]
+
+### Progress Tracker Page
+
+[Insert Image with Progress Tracker Page]
+
+
+This page allows the user to input their running data. Users can input the distance they run, the time they ran for, and their heart rate. Users can see both a table and a line chart to visualize their running journey.
+
+The **setUpChart** method creates a LineChart using the running data inputted by the user and displays it on the screen.
+
+The **addDataFromInput** method takes the data entered into the corresponding TextFields and adds it to a TableView object.
+
+### Settings Page
+
+[Insert Image with Settings Page]
+
+This page allows for the user to alter specific settings to better enhance their experience.
+
+[Update here regarding specific methods once they are finished]
+
 
 
 
