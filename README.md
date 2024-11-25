@@ -1,15 +1,16 @@
-# RunTracker Application
+# RunnerUP
 Computer Science Advanced Programming Capstone Project
-# Table of Contents
-# Summary
-# Technologies
+## Table of Contents
+ * [Summary](
+## Summary
+## Technologies
 * **Intellij IDEA** primary IDE
 * **Java** JDK version 22
 * **Maven** dependency management tool
 * **JavaFX** Controls, Graphics, FXML
 * **Azure MySQL Database** MySQL Database powered by Microsoft Azure
 
-# Setup
+## Setup
 ### Prerequisites:
 
 1. **Java Development Kit (JDK)**
@@ -28,3 +29,11 @@ Computer Science Advanced Programming Capstone Project
 3. **Build the Project**
 4. **Run the Project**
 # Features
+* **Login/Register** Authenticates user or allows them to create an account to start tracking their running data.
+* **Home Page** Accessible directly post-login. Contains sidebar allowing for access to BMI Calculator, Progress, Analysis, and Setting page.
+* **BMI Calculator Page** Allows a user to calculate their BMI, and additionally creates a chart tracking their BMI over time for visual aid regarding their running journey
+* **Progress Tracker Page** Allows user to input their running data and charts the running data. Additionally creates a table that tracks the distance ran, the time the user ran, their pace, and heart rate.
+* **Analysis Page** Uses the running data inputted by the user and analyzes it, giving the user recommendations on how they can better improve their health, as well as what types of runs they should focus on.
+* **Settings Page** Allows user to configure different settings.
+
+
