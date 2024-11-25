@@ -1,7 +1,15 @@
 # RunnerUP
 Computer Science Advanced Programming Capstone Project
 ## Table of Contents
- * [Summary](
+ * [Summary](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#summary)
+ * [Technologies](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#technologies)
+ * [Setup](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#setup)
+    * [Prerequisites](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#prerequisites)
+    * [Instructions](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#instructions)
+ * [Features](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#features)
+ * [Intended Users](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#intended-users)
+ * [How it Works](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#how-it-works)
+
 ## Summary
 ## Technologies
 * **Intellij IDEA** primary IDE
@@ -35,5 +43,34 @@ Computer Science Advanced Programming Capstone Project
 * **Progress Tracker Page** Allows user to input their running data and charts the running data. Additionally creates a table that tracks the distance ran, the time the user ran, their pace, and heart rate.
 * **Analysis Page** Uses the running data inputted by the user and analyzes it, giving the user recommendations on how they can better improve their health, as well as what types of runs they should focus on.
 * **Settings Page** Allows user to configure different settings.
+
+## Intended Users
+* **ANYONE including but not limited to:**
+  * People looking to get back into shape or lose weight.
+  * People trying to increase their physical stamina
+  * People requiring a calorie tracker
+  * People attempting to improve their physique and health
+## How it Works
+### Login/Register Page
+[INSERT IMAGE HERE]
+
+Upon running the applications, users are displayed a splash screen featuring the app's logo. After the splash screen fades, users are prompted with a window where they can either login using their pre-existing credentials or register as a new user.
+
+
+**Login**
+
+[Insert image here with login page]
+
+[Update here regarding specific methods once they are finished]
+
+**Register**
+
+[Insert image here with register page]
+
+[Update here regarding specific methods once they are finished]
+
+
+
+
 
 
