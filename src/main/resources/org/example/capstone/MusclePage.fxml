@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.capstone.MusclePageController">
+    <top>
+        <VBox alignment="CENTER" style="-fx-padding: 20;">
+            <Label text="Leg Muscle Tracker"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: CENTER;" />
+        </VBox>
+    </top>
+
+    <center>
+        <GridPane hgap="40" vgap="40" alignment="CENTER" style="-fx-padding: 40;">
+            <VBox spacing="10" styleClass="muscle-container" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label text="Quadriceps" styleClass="muscle-label" />
+                <TextField fx:id="quadSize" promptText="Size (inches)" styleClass="text-field" />
+                <TextField fx:id="quadStrength" promptText="Strength (lbs)" styleClass="text-field" />
+                <Button text="Update" onAction="#updateQuadriceps" styleClass="button" />
+                <Button text="Check History" onAction="#checkQuadHistory" styleClass="button-history" />
+            </VBox>
+
+            <VBox spacing="10" styleClass="muscle-container" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label text="Hamstrings" styleClass="muscle-label" />
+                <TextField fx:id="hamSize" promptText="Size (inches)" styleClass="text-field" />
+                <TextField fx:id="hamStrength" promptText="Strength (lbs)" styleClass="text-field" />
+                <Button text="Update" onAction="#updateHamstrings" styleClass="button" />
+                <Button text="Check History" onAction="#checkHamHistory" styleClass="button-history" />
+            </VBox>
+
+            <VBox spacing="10" styleClass="muscle-container" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label text="Calves" styleClass="muscle-label" />
+                <TextField fx:id="calfSize" promptText="Size (inches)" styleClass="text-field" />
+                <TextField fx:id="calfStrength" promptText="Strength (lbs)" styleClass="text-field" />
+                <Button text="Update" onAction="#updateCalves" styleClass="button" />
+                <Button text="Check History" onAction="#checkCalfHistory" styleClass="button-history" />
+            </VBox>
+
+            <VBox spacing="10" styleClass="muscle-container" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label text="Glutes" styleClass="muscle-label" />
+                <TextField fx:id="gluteSize" promptText="Size (inches)" styleClass="text-field" />
+                <TextField fx:id="gluteStrength" promptText="Strength (lbs)" styleClass="text-field" />
+                <Button text="Update" onAction="#updateGlutes" styleClass="button" />
+                <Button text="Check History" onAction="#checkGluteHistory" styleClass="button-history" />
+            </VBox>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <Button text="Analyze Muscle Groups" onAction="#analyzeMuscleGroups"
+                    style="-fx-padding: 10; -fx-font-size: 16px; -fx-background-color: #4caf50; -fx-text-fill: white;" />
+            <Button text="Back to Main" onAction="#goBack"
+                    style="-fx-padding: 10; -fx-font-size: 16px; -fx-background-color: #4caf50; -fx-text-fill: white;" />
+        </VBox>
+    </bottom>
+</BorderPane>

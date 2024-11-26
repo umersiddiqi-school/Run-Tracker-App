@@ -25,3 +25,92 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
+.root {
+    -fx-background-color: #f9f9f9;
+    -fx-font-family: "Arial";
+}
+
+.muscle-container {
+    -fx-padding: 15;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
+    -fx-pref-width: 150px;
+    -fx-pref-height: 120px;
+    -fx-alignment: CENTER;
+}
+
+.muscle-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.text-field {
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-padding: 5;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #4caf50, #388e3c);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #66bb6a, #43a047);
+}
+.dialog-pane {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #4caf50;
+    -fx-padding: 20px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: linear-gradient(to bottom, #4caf50, #388e3c);
+    -fx-padding: 10px;
+    -fx-border-radius: 10px 10px 0 0;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .button-bar {
+    -fx-background-color: #f9f9f9;
+    -fx-border-radius: 0 0 10px 10px;
+    -fx-border-color: #ddd;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: linear-gradient(to bottom, #4caf50, #388e3c);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5 20;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: linear-gradient(to bottom, #66bb6a, #43a047);
+}
