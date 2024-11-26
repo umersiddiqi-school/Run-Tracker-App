@@ -15,7 +15,7 @@ Computer Science Advanced Programming Capstone Project
     * [Health Analysis Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#health-analysis-page)
     * [Progress Tracker Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#progress-tracker-page)
     * [Settings Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#settings-page)
-*[Credits](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#credits)
+* [Credits](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#credits)
 
 ## Summary
 
