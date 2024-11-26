@@ -106,13 +106,11 @@ The **updateBMIHistoryChart** method updates the LineChart with the new data. On
 
 ### Health Analysis Page
 
-![Alt text]()
-
+![Alt text](src/main/resources/muscle_page.png)
 
 In the Health Analysis Page, users can choose to have their running data evaluated, and receieve recommendations regarding what types of runs they should focus on.
 
-
-[Update here regarding specific methods once they are finished]
+*This look will be changed before the final submission.
 
 ### Progress Tracker Page
 
