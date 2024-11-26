@@ -151,6 +151,8 @@ This page allows for the user to alter specific settings to better enhance their
 * Configured and designed a friendly user interface which allowed for straightforward navigation. 
 * Created a figma demonstration for the program, and collaborated for the README.
 
+**https://www.figma.com/design/8rDLobYnmijkI7UxDFUUQN/Untitled?node-id=0-1&t=SnD5zA7qMu0PpZvz-1**
+
 ## To-Do
 
 **Home Page**
