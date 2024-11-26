@@ -104,16 +104,6 @@ The **calculateBMI** method retrieves the data entered in the corresponding text
 
 The **updateBMIHistoryChart** method updates the LineChart with the new data. Once the calculate BMI button is clicked, the **calculateBMI** method displays the user's BMI and update's the BMI history chart using the **updateBMIHistoryChart()** method.
 
-### Health Analysis Page
-
-![Alt text]()
-
-
-In the Health Analysis Page, users can choose to have their running data evaluated, and receieve recommendations regarding what types of runs they should focus on.
-
-
-[Update here regarding specific methods once they are finished]
-
 ### Progress Tracker Page
 
 ![Alt text](src/main/resources/progress_tracker.png)
