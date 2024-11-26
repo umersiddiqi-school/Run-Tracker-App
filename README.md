@@ -9,6 +9,13 @@ Computer Science Advanced Programming Capstone Project
  * [Features](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#features)
  * [Intended Users](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#intended-users)
  * [How it Works](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#how-it-works)
+    * [Login/Register Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#loginregister-page)
+    * [Home Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#home-page)
+    * [BMI Calculator Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#bmi-calculator-page)
+    * [Health Analysis Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#health-analysis-page)
+    * [Progress Tracker Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#progress-tracker-page)
+    * [Settings Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#settings-page)
+*[Credits](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#credits)
 
 ## Summary
 
@@ -119,6 +126,7 @@ This page allows for the user to alter specific settings to better enhance their
 
 [Update here regarding specific methods once they are finished]
 
+## Credits
 
 
 
