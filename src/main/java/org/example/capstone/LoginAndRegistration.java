@@ -5,169 +5,198 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.example.capstone.dao.DbConnectivityClass;
 import org.example.capstone.dao.UserDao;
 import org.example.capstone.model.User;
 
-import java.sql.Connection;
+import java.nio.file.Paths;
 
 public class LoginAndRegistration extends Application {
 
     private DbConnectivityClass dbConnectivity;
     private UserDao userDao;
+    private StackPane rootPane;
+    private StackPane loginPanel;
+    private VBox loginForm;
+    private VBox registrationForm;
 
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setTitle("RunnerUp!");
+
+
         // Initialize database connectivity
         dbConnectivity = new DbConnectivityClass();
         if (!dbConnectivity.connectToDatabase()) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to connect to the database. Exiting...");
             System.exit(1);
         }
-
-        // Initialize UserDao
         userDao = new UserDao(dbConnectivity.getConnection());
 
-        // Set up the stage with the login scene as the default
-        primaryStage.setTitle("Run Tracker App");
-        primaryStage.setScene(createLoginScene(primaryStage));
+        // Create root pane with background image
+        rootPane = new StackPane();
+        rootPane.setBackground(new Background(new BackgroundImage(
+                new Image(Paths.get("src/main/resources/org/example/capstone/runnerPhoto.png").toUri().toString()),
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
+        )));
+
+        // Create forms
+        loginForm = createLoginForm(primaryStage);
+        registrationForm = createRegistrationForm();
+
+        // Wrap forms inside a StackPane
+        loginPanel = new StackPane(loginForm, registrationForm);
+        loginPanel.setMaxWidth(300);
+        loginPanel.setMaxHeight(400);
+        loginPanel.setStyle("-fx-background-color: rgba(211, 211, 211, 0.9); -fx-background-radius: 20;");
+
+        // Initial settings for registration form
+        registrationForm.setVisible(false);
+
+        rootPane.getChildren().add(loginPanel);
+
+        Scene scene = new Scene(rootPane, 800, 600);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     /**
-     * Creates the Login Scene
+     * Creates the Login Form with a button to switch to the registration form.
      */
-    private Scene createLoginScene(Stage stage) {
-        VBox loginForm = new VBox(10);
-        loginForm.setPadding(new Insets(20));
-        loginForm.setAlignment(Pos.CENTER);
-        loginForm.setStyle("-fx-background-color: #555;");
+    private VBox createLoginForm(Stage primaryStage) {
+        VBox form = new VBox(15);
+        form.setPadding(new Insets(20));
+        form.setAlignment(Pos.CENTER);
+        form.setStyle("-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 20;");
+        form.setMaxWidth(300);
+        form.setMaxHeight(400);
 
-        Label loginTitle = new Label("Run Tracker App");
-        TextField usernameField = new TextField();
-        usernameField.setPromptText("Username");
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        Label titleLabel = new Label("RunnerUP!");
+        titleLabel.setStyle("-fx-font-size: 28; -fx-font-weight: bold;");
+
+        TextField loginUsername = new TextField();
+        loginUsername.setPromptText("Username");
+
+        PasswordField loginPassword = new PasswordField();
+        loginPassword.setPromptText("Password");
 
         Button loginButton = new Button("Login");
-        Button switchToRegisterButton = new Button("Create Account");
-
-        // Login action
         loginButton.setOnAction(e -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-
+            String username = loginUsername.getText();
+            String password = loginPassword.getText();
             if (username.isEmpty() || password.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Login Error", "Please fill in both username and password.");
+                showAlert(Alert.AlertType.ERROR, "Login Error", "Please fill in all fields.");
             } else {
                 if (userDao.validateLogin(username, password)) {
-                    showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + username + "!");
-                    stage.setScene(createDashboardScene(stage, username));
+                    // Redirect to BodyMetricApp
+                    BodyMetricApp bodyMetricApp = new BodyMetricApp();
+                    try {
+                        bodyMetricApp.start(primaryStage);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        showAlert(Alert.AlertType.ERROR, "Redirection Error", "Unable to load BodyMetricApp.");
+                    }
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid username or password.");
                 }
             }
         });
 
-        // Switch to Registration action
-        switchToRegisterButton.setOnAction(e -> stage.setScene(createRegistrationScene(stage)));
+        Button switchToRegisterButton = new Button("Register");
+        switchToRegisterButton.setOnAction(e -> showRegistrationForm());
 
-        loginForm.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, switchToRegisterButton);
-        return new Scene(loginForm, 300, 400);
+        form.getChildren().addAll(titleLabel, loginUsername, loginPassword, loginButton, switchToRegisterButton);
+        return form;
     }
 
     /**
-     * Creates the Registration Scene
+     * Creates the Registration Form with a button to switch back to the login form.
      */
-    private Scene createRegistrationScene(Stage stage) {
-        VBox registrationForm = new VBox(10);
-        registrationForm.setPadding(new Insets(20));
-        registrationForm.setAlignment(Pos.CENTER);
-        registrationForm.setStyle("-fx-background-color: #555;");
+    private VBox createRegistrationForm() {
+        VBox form = new VBox(15);
+        form.setPadding(new Insets(20));
+        form.setAlignment(Pos.CENTER);
+        form.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20;");
+        form.setMaxWidth(300);
+        form.setMaxHeight(400);
 
-        Label registerTitle = new Label("Register");
+        Label titleLabel = new Label("Register");
+        titleLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold;");
+
         TextField regUsername = new TextField();
         regUsername.setPromptText("Username");
+
         TextField regEmail = new TextField();
         regEmail.setPromptText("Email");
+
         PasswordField regPassword = new PasswordField();
         regPassword.setPromptText("Password");
+
         TextField regZipCode = new TextField();
         regZipCode.setPromptText("Zip Code");
 
-        Button registerButton = new Button("Register");
-        Button switchToLoginButton = new Button("Back to Login");
 
-        // Registration action
+        Button registerButton = new Button("Register");
         registerButton.setOnAction(e -> {
             String username = regUsername.getText();
             String email = regEmail.getText();
             String password = regPassword.getText();
             String zipCode = regZipCode.getText();
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || zipCode.isEmpty()) {
+
+
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Registration Error", "All fields must be filled!");
             } else {
-                // Create the new user object
+
                 User newUser = new User(username, password, email, zipCode);
-
-                // Get the database connection
-                DbConnectivityClass dbConnectivity = new DbConnectivityClass();
-                Connection connection = dbConnectivity.getConnection();
-
-                if (connection != null) {
-                    // Create UserDao with the connection
-                    UserDao userDao = new UserDao(connection);
-
-                    // Register user
-                    if (userDao.registerUser(newUser)) {
-                        showAlert(Alert.AlertType.INFORMATION, "Registration Success", "Account created successfully!");
-                        stage.setScene(createLoginScene(stage)); // Switch back to login scene after successful registration
-                    } else {
-                        showAlert(Alert.AlertType.ERROR, "Registration Error", "Failed to create account. Try again!");
-                    }
+                if (userDao.registerUser(newUser)) {
+                    showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created!");
+                    showLoginForm();
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to connect to the database.");
+                    showAlert(Alert.AlertType.ERROR, "Registration Error", "Failed to create account. Try again!");
                 }
             }
         });
 
+        Button switchToLoginButton = new Button("Back to Login");
+        switchToLoginButton.setOnAction(e -> showLoginForm());
 
-        // Switch to Login action
-        switchToLoginButton.setOnAction(e -> stage.setScene(createLoginScene(stage)));
-
-        registrationForm.getChildren().addAll(registerTitle, regUsername, regEmail, regPassword, regZipCode, registerButton, switchToLoginButton);
-        return new Scene(registrationForm, 300, 400);
+        form.getChildren().addAll(titleLabel, regUsername, regEmail, regPassword, registerButton, switchToLoginButton);
+        return form;
     }
 
     /**
-     * Creates the Dashboard Scene
+     * Shows the registration form and blurs the login form.
      */
-    private Scene createDashboardScene(Stage stage, String username) {
-        VBox dashboard = new VBox(20);
-        dashboard.setAlignment(Pos.CENTER);
-        dashboard.setPadding(new Insets(20));
-
-        Label welcomeLabel = new Label("Welcome, " + username + "!");
-        Button logoutButton = new Button("Logout");
-
-        // Logout action
-        logoutButton.setOnAction(e -> stage.setScene(createLoginScene(stage)));
-
-        dashboard.getChildren().addAll(welcomeLabel, logoutButton);
-        return new Scene(dashboard, 300, 400);
+    private void showRegistrationForm() {
+        loginForm.setEffect(new GaussianBlur(10));
+        registrationForm.setVisible(true);
     }
 
     /**
-     * Utility method to show alerts
+     * Hides the registration form and removes the blur effect from the login form.
      */
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
+    private void showLoginForm() {
+        loginForm.setEffect(null);
+        registrationForm.setVisible(false);
+    }
+
+    /**
+     * Utility method to show alerts.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 
