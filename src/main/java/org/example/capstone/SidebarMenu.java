@@ -1,12 +1,24 @@
 package org.example.capstone;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SidebarMenu {
 
     private VBox sidebar;
+    private Label clockLabel;
 
     public SidebarMenu(BodyMetricApp app) {
         sidebar = new VBox(); // No spacing for flush buttons
@@ -20,7 +32,8 @@ public class SidebarMenu {
         Button progressButton = createSidebarButton("Progress", app);
         Button settingsButton = createSidebarButton("Settings", app);
 
-        sidebar.getChildren().addAll(homeButton, bmiButton, muscleButton, progressButton, settingsButton);
+        sidebar.getChildren().addAll(homeButton, new Separator(), bmiButton, new Separator(), muscleButton, new Separator(), progressButton, new Separator(), settingsButton, new Separator());
+        setupClock();
     }
 
     // Helper method to create a styled sidebar button with hover effect
@@ -54,6 +67,28 @@ public class SidebarMenu {
         }
 
         return button;
+    }
+
+    public void setupClock(){
+        clockLabel = new Label();
+        clockLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px; -fx-background-color: rgba(0,0,0,0.5); -fx-padding: 5px");
+        clockLabel.setMaxWidth(Double.MAX_VALUE);
+
+
+        VBox.setVgrow(clockLabel, Priority.ALWAYS);
+
+        sidebar.getChildren().add(clockLabel);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e-> updateClock()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+    }
+
+    public void updateClock(){
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+        String currentTime = sdf.format(new Date());
+        clockLabel.setText(currentTime);
     }
 
     public VBox getSidebar() {

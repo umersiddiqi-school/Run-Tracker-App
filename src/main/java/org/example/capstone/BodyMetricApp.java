@@ -1,5 +1,4 @@
 package org.example.capstone;
-
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
