@@ -59,11 +59,9 @@ public class ProgressPage extends VBox {
         distanceField = new TextField();
         distanceField.setPromptText("Enter Distance (km)");
         distanceField.getStyleClass().add("text-field");
-
         timeField = new TextField();
         timeField.setPromptText("Enter Time (min)");
         timeField.getStyleClass().add("text-field");
-
         heartRateField = new TextField();
         heartRateField.setPromptText("Enter Heart Rate (bpm)");
         heartRateField.getStyleClass().add("text-field");
@@ -179,7 +177,8 @@ public class ProgressPage extends VBox {
                 addDataToChart(entry);
             }
         }
-    }private void deleteDataEntry(DataEntry entry) {
+    }
+    private void deleteDataEntry(DataEntry entry) {
         dataEntries.remove(entry);
         if (entry.getChartData() != null) {
             series.getData().remove(entry.getChartData());

@@ -5,11 +5,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.capstone.dao.DbConnectivityClass;
@@ -24,15 +21,11 @@ public class HomePage extends VBox {
 
     public HomePage(PageManager pageManager) {
         this.pageManager = pageManager;
-
         setPadding(new Insets(10));
         getStyleClass().add("home-page");
-
-        // Create line chart and pie chart
-        lineChart = createLineChart();
+        LineChart<Number, Number> lineChart = createLineChart();
         lineChart.getStyleClass().add("line-chart");
-
-        pieChart = createPieChart();
+        PieChart pieChart = createPieChart();
         pieChart.getStyleClass().add("pie-chart");
 
         // Welcome text
@@ -76,6 +69,13 @@ public class HomePage extends VBox {
         // Create line chart
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("BMI Trends");
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("BMI Data");
+
+        for(int i = 0; i < pageManager.getBmiHistory().size(); i++){
+            series.getData().add(new XYChart.Data<>(i+1, pageManager.getBmiHistory().get(i)));
+        }
+        lineChart.getData().add(series);
 
         lineChart.setLegendVisible(false);
 
@@ -83,7 +83,6 @@ public class HomePage extends VBox {
     }
 
     private PieChart createPieChart() {
-        // Create pie chart
         PieChart pieChart = new PieChart();
         pieChart.getData().addAll(
                 new PieChart.Data("Mile Run!", 25),

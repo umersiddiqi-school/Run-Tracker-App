@@ -26,6 +26,11 @@ public class LoginAndRegistration extends Application {
     private VBox loginForm;
     private VBox registrationForm;
 
+    /*
+    Hey, I have no idea why it only works when you pull it into a project named "capstone".
+    I don't know what changed, but one day it stopped working unless you did so.
+     */
+
     @Override
     public void start(Stage primaryStage) throws SQLException {
         primaryStage.setTitle("RunnerUp!");
@@ -46,18 +51,12 @@ public class LoginAndRegistration extends Application {
                 BackgroundPosition.CENTER,
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
         )));
-
-        // Create forms
         loginForm = createLoginForm(primaryStage);
         registrationForm = createRegistrationForm();
-
-        // Wrap forms inside a StackPane
         loginPanel = new StackPane(loginForm, registrationForm);
         loginPanel.setMaxWidth(300);
         loginPanel.setMaxHeight(400);
         loginPanel.setStyle("-fx-background-color: rgba(211, 211, 211, 0.9); -fx-background-radius: 20;");
-
-        // Initial settings for registration form
         registrationForm.setVisible(false);
 
         rootPane.getChildren().add(loginPanel);

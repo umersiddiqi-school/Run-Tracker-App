@@ -22,8 +22,11 @@ public class BodyMetricApp extends Application {
         int userId = userSession.getUserId();
         // Top Section (Personal Information)
         TopSection topSection = new TopSection(username);
+
+        TopSection topSection = new TopSection("John Doe", 30);
         topSection.getTopSection().getStyleClass().add("top-section");
         // Sidebar Menu
+
         sidebarMenu = new SidebarMenu(this);
         sidebarMenu.getSidebar().getStyleClass().add("sidebar");
         // Main Layout
@@ -32,9 +35,11 @@ public class BodyMetricApp extends Application {
         mainLayout.setLeft(sidebarMenu.getSidebar());
         // Page Manager (Default Home Page)
         pageManager = new PageManager(mainLayout, this, userSession);
+        pageManager = new PageManager(mainLayout, this);
         pageManager.loadHomePage();
         setTheme("light");
         // Sidebar Toggle Button
+
         Button toggleSidebarButton = new Button("☰");
         toggleSidebarButton.getStyleClass().add("toggle-sidebar-button");
         toggleSidebarButton.setOnAction(e -> toggleSidebar());
@@ -42,6 +47,7 @@ public class BodyMetricApp extends Application {
         BorderPane.setAlignment(toggleSidebarButton, javafx.geometry.Pos.TOP_LEFT);
         mainLayout.setTop(new BorderPane(topSection.getTopSection(), null, null, null, toggleSidebarButton));
         // Scene and Stage
+
         Scene scene = new Scene(mainLayout, 800, 600);
         primaryStage.setTitle("Run Tracker App");
         primaryStage.setScene(scene);

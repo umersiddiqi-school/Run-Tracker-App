@@ -37,7 +37,7 @@ public class PageManager {
         mainLayout.setCenter(new BMICalculatorPage(this));
     }
     public void loadMuscleTrackerPage() {
-        mainLayout.setCenter(new MuscleGroupTrackerPage());
+        mainLayout.setCenter(new MusclePage());
     }
     public void loadProgressPage() {
         mainLayout.setCenter(new ProgressPage());
