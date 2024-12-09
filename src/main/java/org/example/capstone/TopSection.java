@@ -10,7 +10,7 @@ public class TopSection {
 
     private HBox topSection;
 
-    public TopSection(String username, int age) {
+    public TopSection(String username) {
         topSection = new HBox();
         topSection.setPadding(new Insets(10));
         topSection.getStyleClass().add("top-section");
@@ -22,7 +22,7 @@ public class TopSection {
         labelContainer.setPadding(new Insets(5));
         labelContainer.setAlignment(Pos.CENTER);
 
-        Label personalInfoLabel = new Label("Logged in as: " + username + " | Age: " + age);
+        Label personalInfoLabel = new Label("Logged in as: " + username);
         personalInfoLabel.getStyleClass().add("personal-info-label");
 
         labelContainer.getChildren().add(personalInfoLabel);

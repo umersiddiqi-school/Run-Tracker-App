@@ -12,8 +12,10 @@ import javafx.stage.Stage;
 import org.example.capstone.dao.DbConnectivityClass;
 import org.example.capstone.dao.UserDao;
 import org.example.capstone.model.User;
+import org.example.capstone.service.UserSession;
 
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 public class LoginAndRegistration extends Application {
 
@@ -24,20 +26,18 @@ public class LoginAndRegistration extends Application {
     private VBox loginForm;
     private VBox registrationForm;
 
-    /*
-    Hey, I have no idea why it only works when you pull it into a project named "capstone".
-    I don't know what changed, but one day it stopped working unless you did so.
-     */
-
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
         primaryStage.setTitle("RunnerUp!");
+
+        // Initialize database connectivity
         dbConnectivity = new DbConnectivityClass();
         if (!dbConnectivity.connectToDatabase()) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to connect to the database. Exiting...");
             System.exit(1);
         }
         userDao = new UserDao(dbConnectivity.getConnection());
+        // Create root pane with background image
         rootPane = new StackPane();
         rootPane.setBackground(new Background(new BackgroundImage(
                 new Image(Paths.get("src/main/resources/org/example/capstone/runnerPhoto.png").toUri().toString()),
@@ -46,12 +46,18 @@ public class LoginAndRegistration extends Application {
                 BackgroundPosition.CENTER,
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)
         )));
+
+        // Create forms
         loginForm = createLoginForm(primaryStage);
         registrationForm = createRegistrationForm();
+
+        // Wrap forms inside a StackPane
         loginPanel = new StackPane(loginForm, registrationForm);
         loginPanel.setMaxWidth(300);
         loginPanel.setMaxHeight(400);
         loginPanel.setStyle("-fx-background-color: rgba(211, 211, 211, 0.9); -fx-background-radius: 20;");
+
+        // Initial settings for registration form
         registrationForm.setVisible(false);
 
         rootPane.getChildren().add(loginPanel);
@@ -89,19 +95,27 @@ public class LoginAndRegistration extends Application {
                 showAlert(Alert.AlertType.ERROR, "Login Error", "Please fill in all fields.");
             } else {
                 if (userDao.validateLogin(username, password)) {
-                    // Redirect to BodyMetricApp
-                    BodyMetricApp bodyMetricApp = new BodyMetricApp();
-                    try {
-                        bodyMetricApp.start(primaryStage);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        showAlert(Alert.AlertType.ERROR, "Redirection Error", "Unable to load BodyMetricApp.");
+                    // Fetch the user ID (you can modify validateLogin to return the user object if needed)
+                    User user = userDao.getUserByUsername(username); // Assuming this method is available
+                    if (user != null) {
+                        // Create UserSession and save user details (username, userId)
+                        UserSession.getInstance().login(user.getUsername(), user.getId());
+
+                        // Redirect to BodyMetricApp
+                        BodyMetricApp bodyMetricApp = new BodyMetricApp();
+                        try {
+                            bodyMetricApp.start(primaryStage);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            showAlert(Alert.AlertType.ERROR, "Redirection Error", "Unable to load BodyMetricApp.");
+                        }
                     }
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid username or password.");
                 }
             }
         });
+
 
         Button switchToRegisterButton = new Button("Register");
         switchToRegisterButton.setOnAction(e -> showRegistrationForm());
@@ -133,24 +147,17 @@ public class LoginAndRegistration extends Application {
         PasswordField regPassword = new PasswordField();
         regPassword.setPromptText("Password");
 
-        TextField regZipCode = new TextField();
-        regZipCode.setPromptText("Zip Code");
-
-
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e -> {
             String username = regUsername.getText();
             String email = regEmail.getText();
             String password = regPassword.getText();
-            String zipCode = regZipCode.getText();
-
-
 
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Registration Error", "All fields must be filled!");
             } else {
-
-                User newUser = new User(username, password, email, zipCode);
+                // Create User without zip code
+                User newUser = new User(username, password, email);
                 if (userDao.registerUser(newUser)) {
                     showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created!");
                     showLoginForm();

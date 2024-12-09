@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.layout.HBox;
+import org.example.capstone.dao.DbConnectivityClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,7 @@ public class BMICalculatorPage extends VBox {
         inputBox.setSpacing(10);
         inputBox.getStyleClass().add("weight-height-input-box");
         getChildren().addAll(bmiTitle, inputBox, calculateButton, bmiResultLabel, bmiProgressBar, bmiChartWrapper);
+        loadBMIHistory();
     }
 
     private void calculateBMI() {
@@ -79,13 +81,13 @@ public class BMICalculatorPage extends VBox {
 
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));
             updateProgressBar(bmi);
-
-            updateBMIHistoryChart();
-
+            updateBMIHistoryChart(); // Update the chart with the new data
+            loadBMIHistory();
         } catch (NumberFormatException e) {
             bmiResultLabel.setText("Please enter valid numbers for weight and height.");
         }
     }
+
 
     private void updateProgressBar(double bmi) {
         double progress;
@@ -113,6 +115,12 @@ public class BMICalculatorPage extends VBox {
             bmiSeries.getData().add(new XYChart.Data<>(i + 1, bmiHistory.get(i)));
         }
     }
+    private void loadBMIHistory() {
+        int userId = pageManager.getUserSession().getUserId();
+        bmiHistory = DbConnectivityClass.getBMIHistory(userId);
+        updateBMIHistoryChart();
+    }
+
 
     private LineChart<Number, Number> createBMIHistoryChart() {
         NumberAxis xAxis = new NumberAxis();
@@ -137,8 +145,3 @@ public class BMICalculatorPage extends VBox {
                 (int) (color.getBlue() * 255));
     }
 }
-
-
-
-
-
