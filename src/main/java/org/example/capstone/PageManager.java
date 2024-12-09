@@ -1,6 +1,7 @@
 package org.example.capstone;
 
 import javafx.scene.layout.BorderPane;
+import org.example.capstone.service.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +11,23 @@ public class PageManager {
     private BorderPane mainLayout;
     private List<Double> bmiHistory;
     private BodyMetricApp app;
+    private UserSession userSession;
 
-    public PageManager(BorderPane mainLayout, BodyMetricApp app) {
+    public PageManager(BorderPane mainLayout, BodyMetricApp app, UserSession userSession) {
         this.mainLayout = mainLayout;
         this.bmiHistory = new ArrayList<>();
-        this.app=app;
+        this.app = app;
+        this.userSession = userSession;
     }
-    public List<Double> getBmiHistory(){
+    public List<Double> getBmiHistory() {
         return bmiHistory;
     }
-    public void addBmiEntry(double bmi){
+    public void addBmiEntry(double bmi) {
         bmiHistory.add(bmi);
+    }
+
+    public UserSession getUserSession() {
+        return userSession;
     }
 
     public void loadHomePage() {
@@ -43,11 +50,3 @@ public class PageManager {
         mainLayout.setCenter(new SettingsPage(app));
     }
 }
-
-
-
-
-
-
-
-

@@ -13,9 +13,15 @@ import javafx.scene.chart.XYChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import org.example.capstone.dao.DbConnectivityClass;
+import org.example.capstone.model.RunningProgress;
+import org.example.capstone.service.UserSession;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class ProgressPage extends VBox {
-
+    private DatePicker datePicker;
     private LineChart<Number, Number> lineChart;
     private TextField distanceField;
     private TextField timeField;
@@ -24,12 +30,16 @@ public class ProgressPage extends VBox {
     private ObservableList<DataEntry> dataEntries;
     private XYChart.Series<Number, Number> series;
 
+    private DbConnectivityClass dbConnectivity;
+
     public ProgressPage() {
+        // Initialize the DbConnectivityClass instance
+        dbConnectivity = new DbConnectivityClass();
         dataEntries = FXCollections.observableArrayList(); // Central data storage
         setupChart();
         setupInputFields();
         setupTableView();
-
+        loadRunningProgressData();
         this.getStyleClass().add("progress-page");
     }
 
@@ -72,13 +82,17 @@ public class ProgressPage extends VBox {
         heartRateField.setPromptText("Enter Heart Rate (bpm)");
         heartRateField.getStyleClass().add("text-field");
 
+        // Create DatePicker for date
+        datePicker = new DatePicker();
+        datePicker.setPromptText("Select Date");
+
         // Add Button
         Button addButton = new Button("Add Data");
         addButton.setOnAction(e -> addDataFromInput());
         addButton.getStyleClass().add("button");
 
         // Layout for input fields and button
-        HBox inputBox = new HBox(10, distanceField, timeField, heartRateField, addButton);
+        HBox inputBox = new HBox(10, distanceField, timeField, heartRateField, datePicker, addButton);
         inputBox.setPadding(new Insets(10));
 
         // Add inputBox to main layout
@@ -168,25 +182,29 @@ public class ProgressPage extends VBox {
             double distance = Double.parseDouble(distanceField.getText());
             double time = Double.parseDouble(timeField.getText());
             int heartRate = Integer.parseInt(heartRateField.getText());
-
             // Calculate pace as time per distance
             String pace = String.format("%.2f", time / distance) + " min/km";
-
-            // Create a new DataEntry object
-            DataEntry newEntry = new DataEntry(distance, time, pace, heartRate);
-
+            // Get the selected date from the DatePicker
+            LocalDate date = datePicker.getValue();
+            // Retrieve the current user ID from the UserSession
+            int userId = UserSession.getInstance().getUserId();  // Get the current logged-in user's ID
+            RunningProgress newEntry = new RunningProgress(userId, distance, time, date);
+            DbConnectivityClass.insertRun(newEntry);  // Insert into the database
             // Add data entry to both the table and chart
-            dataEntries.add(newEntry); // Add to table (through ObservableList)
-            addDataToChart(newEntry);  // Add to chart
-
+            DataEntry dataEntry = new DataEntry(distance, time, pace, heartRate);
+            dataEntries.add(dataEntry);
+            addDataToChart(dataEntry);
             // Clear input fields after adding the data
             distanceField.clear();
             timeField.clear();
             heartRateField.clear();
+            datePicker.setValue(null);
         } catch (NumberFormatException e) {
             showAlert("Invalid Input", "Please ensure all fields are filled correctly with numbers where required.");
         } catch (ArithmeticException e) {
             showAlert("Invalid Data", "Distance cannot be zero.");
+        } catch (NullPointerException e) {
+            showAlert("Invalid Date", "Please select a valid date.");
         }
     }
 
@@ -234,6 +252,26 @@ public class ProgressPage extends VBox {
         alert.showAndWait();
     }
 
+    private void loadRunningProgressData() {
+        // Retrieve the running progress data from the database for the current user
+        int userId = UserSession.getInstance().getUserId();  // Get the current logged-in user's ID
+        List<RunningProgress> progressList = dbConnectivity.getRunningProgressData(userId);
+
+        // Populate the chart and table with the retrieved data
+        for (RunningProgress progress : progressList) {
+            // Create DataEntry for each RunningProgress
+            DataEntry dataEntry = new DataEntry(progress.getDistanceKm(), progress.getTimeMinutes(),
+                    String.format("%.2f", progress.getTimeMinutes() / progress.getDistanceKm()) + " min/km",
+                    0);  // Assuming 0 for heart rate for now, you can modify as needed
+
+            // Add entry to the table
+            dataEntries.add(dataEntry);
+
+            // Add entry to the chart
+            addDataToChart(dataEntry);
+        }
+    }
+
     // Data model for table entries
     public static class DataEntry {
         private final double distance;
@@ -259,11 +297,4 @@ public class ProgressPage extends VBox {
         public XYChart.Data<Number, Number> getChartData() { return chartData; }
         public void setChartData(XYChart.Data<Number, Number> chartData) { this.chartData = chartData; }
     }
-
-
 }
-
-
-
-
-

@@ -1,7 +1,6 @@
 package org.example.capstone;
 
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -13,10 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.capstone.dao.DbConnectivityClass;
+
+import java.util.List;
 
 public class HomePage extends VBox {
 
     private PageManager pageManager;
+    private LineChart<Number, Number> lineChart;
+    private PieChart pieChart;
 
     public HomePage(PageManager pageManager) {
         this.pageManager = pageManager;
@@ -25,10 +29,10 @@ public class HomePage extends VBox {
         getStyleClass().add("home-page");
 
         // Create line chart and pie chart
-        LineChart<Number, Number> lineChart = createLineChart();
+        lineChart = createLineChart();
         lineChart.getStyleClass().add("line-chart");
 
-        PieChart pieChart = createPieChart();
+        pieChart = createPieChart();
         pieChart.getStyleClass().add("pie-chart");
 
         // Welcome text
@@ -41,6 +45,26 @@ public class HomePage extends VBox {
 
         // Add the home title at the top and the homeVbox below
         getChildren().add(homeVbox);
+
+        // Load the BMI history for the current user
+        loadBMIHistory();
+    }
+
+    private void loadBMIHistory() {
+        // Fetch BMI history from the database for the current user
+        int userId = pageManager.getUserSession().getUserId();
+        List<Double> bmiHistory = DbConnectivityClass.getBMIHistory(userId);
+
+        // Update the line chart with the fetched data
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("BMI Data");
+
+        for (int i = 0; i < bmiHistory.size(); i++) {
+            series.getData().add(new XYChart.Data<>(i + 1, bmiHistory.get(i)));
+        }
+
+        lineChart.getData().clear();
+        lineChart.getData().add(series);
     }
 
     private LineChart<Number, Number> createLineChart() {
@@ -52,16 +76,6 @@ public class HomePage extends VBox {
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("BMI Trends");
 
-        // Data series
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName("BMI Data");
-
-        for(int i = 0; i < pageManager.getBmiHistory().size(); i++){
-            series.getData().add(new XYChart.Data<>(i+1, pageManager.getBmiHistory().get(i)));
-        }
-
-        // Add series to chart
-        lineChart.getData().add(series);
         lineChart.setLegendVisible(false);
 
         return lineChart;
@@ -82,12 +96,4 @@ public class HomePage extends VBox {
 
         return pieChart;
     }
-
 }
-
-
-
-
-
-
-
