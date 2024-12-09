@@ -22,48 +22,59 @@ public class BMICalculatorPage extends VBox {
     private ProgressBar bmiProgressBar;
     private LineChart<Number, Number> bmiHistoryChart;
     private XYChart.Series<Number, Number> bmiSeries;
-    private List<Double> bmiHistory;
+    private List<Double> bmiHistory = new ArrayList<>();
     private PageManager pageManager;
 
     public BMICalculatorPage(PageManager pageManager) {
         this.pageManager = pageManager;
 
+        getStyleClass().add("bmi-calculator-page");
+
         setPadding(new Insets(10));
         setSpacing(15);
 
         bmiHistoryChart = createBMIHistoryChart();
+        bmiHistoryChart.getStyleClass().add("bmi-history-chart");
+        bmiHistoryChart.minWidth(Double.MAX_VALUE);
 
         // Title
         Label bmiTitle = new Label("BMI Calculator");
-        bmiTitle.setFont(new Font("Arial", 20));
+        bmiTitle.getStyleClass().add("bmi-title");
 
         // Input fields for weight and height
         weightField = new TextField();
         weightField.setPromptText("Enter weight (kg)");
+        weightField.getStyleClass().add("text-field");
 
         heightField = new TextField();
         heightField.setPromptText("Enter height (m)");
+        heightField.getStyleClass().add("text-field");
 
         // Button to calculate BMI
         Button calculateButton = new Button("Calculate BMI");
         calculateButton.setOnAction(e -> calculateBMI());
+        calculateButton.getStyleClass().add("calculate-button");
 
         // Label to show the BMI result
         bmiResultLabel = new Label("Your BMI will be displayed here.");
+        bmiResultLabel.getStyleClass().add("bmi-result-label");
 
         // Progress bar to indicate BMI range
         bmiProgressBar = new ProgressBar(0);
         bmiProgressBar.setPrefWidth(300);
+        bmiProgressBar.getStyleClass().add("bmi-progress-bar");
 
         StackPane bmiChartWrapper = new StackPane();
         bmiChartWrapper.setStyle("-fx-background-color: rgba(255,255,255,0.0);");
         bmiChartWrapper.getChildren().add(bmiHistoryChart);
         bmiChartWrapper.setMaxWidth(Double.MAX_VALUE);
         bmiChartWrapper.setPrefWidth(Double.MAX_VALUE);
+        bmiChartWrapper.getStyleClass().add("stack-pane");
 
         // Set up layout
         HBox inputBox = new HBox(10, new Label("Weight (kg):"), weightField, new Label("Height (m):"), heightField);
         inputBox.setSpacing(10);
+        inputBox.getStyleClass().add("weight-height-input-box");
         getChildren().addAll(bmiTitle, inputBox, calculateButton, bmiResultLabel, bmiProgressBar, bmiChartWrapper);
     }
 
@@ -77,9 +88,13 @@ public class BMICalculatorPage extends VBox {
 
             pageManager.addBmiEntry(bmi);
 
+            bmiHistory.add(bmi);
+
             // Update the result label and progress bar
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));
             updateProgressBar(bmi);
+
+            updateBMIHistoryChart();
 
         } catch (NumberFormatException e) {
             bmiResultLabel.setText("Please enter valid numbers for weight and height.");

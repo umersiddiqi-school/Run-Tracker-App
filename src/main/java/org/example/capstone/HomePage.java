@@ -22,15 +22,18 @@ public class HomePage extends VBox {
         this.pageManager = pageManager;
 
         setPadding(new Insets(10));
+        getStyleClass().add("home-page");
 
         // Create line chart and pie chart
         LineChart<Number, Number> lineChart = createLineChart();
+        lineChart.getStyleClass().add("line-chart");
+
         PieChart pieChart = createPieChart();
+        pieChart.getStyleClass().add("pie-chart");
 
         // Welcome text
         Text welcomeText = new Text("Welcome back!");
-        welcomeText.setFont(Font.font("Arial", 24));
-        welcomeText.setFill(Color.BLACK);
+        welcomeText.getStyleClass().add("welcome-text");
 
         // Create the VBox layout for the home page content
         VBox homeVbox = new VBox(10, welcomeText, lineChart, new Separator(), pieChart);
@@ -61,9 +64,6 @@ public class HomePage extends VBox {
         lineChart.getData().add(series);
         lineChart.setLegendVisible(false);
 
-        // Style chart
-        lineChart.setStyle("-fx-stroke: #DA70D6; -fx-background-color: rgba(255,255,255,0.0);");
-
         return lineChart;
     }
 
@@ -79,7 +79,6 @@ public class HomePage extends VBox {
 
         pieChart.setTitle("Activity Breakdown");
         pieChart.setLegendVisible(true);
-        pieChart.setStyle("-fx-pie-color: purple;");
 
         return pieChart;
     }

@@ -18,9 +18,11 @@ public class BodyMetricApp extends Application {
     public void start(Stage primaryStage) {
         // Top Section (Personal Information)
         TopSection topSection = new TopSection("John Doe", 30);
+        topSection.getTopSection().getStyleClass().add("top-section");
 
         // Sidebar Menu
         sidebarMenu = new SidebarMenu(this);
+        sidebarMenu.getSidebar().getStyleClass().add("sidebar");
 
         // Main Layout
         mainLayout = new BorderPane();
@@ -28,17 +30,15 @@ public class BodyMetricApp extends Application {
         mainLayout.setLeft(sidebarMenu.getSidebar());
 
         // Page Manager (Default Home Page)
-        pageManager = new PageManager(mainLayout);
+        pageManager = new PageManager(mainLayout, this);
         pageManager.loadHomePage();
+
+        setTheme("light");
 
         // Sidebar Toggle Button
         Button toggleSidebarButton = new Button("☰");
-        toggleSidebarButton.setStyle("-fx-font-size: fill;");
+        toggleSidebarButton.getStyleClass().add("toggle-sidebar-button");
         toggleSidebarButton.setOnAction(e -> toggleSidebar());
-        toggleSidebarButton.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 0;");
-
-        toggleSidebarButton.setOnMouseEntered(e -> toggleSidebarButton.setStyle("-fx-background-color: #666; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 0;"));
-        toggleSidebarButton.setOnMouseExited(e -> toggleSidebarButton.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 0;"));
 
         // Place Toggle Button on Top Left
         BorderPane.setAlignment(toggleSidebarButton, javafx.geometry.Pos.TOP_LEFT);
@@ -51,6 +51,18 @@ public class BodyMetricApp extends Application {
         primaryStage.setTitle("Run Tracker App");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void setTheme(String theme){
+        String themeFile = theme.equals("dark") ? "/night-mode.css" : "/day-mode.css";
+        String themePath = getClass().getResource(themeFile).toExternalForm();
+        if(theme.equals("dark")){
+            mainLayout.getStylesheets().clear();
+            mainLayout.getStylesheets().add(themePath);
+        } else {
+            mainLayout.getStylesheets().clear();
+            mainLayout.getStylesheets().add(themePath);
+        }
     }
 
     public PageManager getPageManager() {

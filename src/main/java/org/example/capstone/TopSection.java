@@ -13,22 +13,17 @@ public class TopSection {
     public TopSection(String username, int age) {
         topSection = new HBox();
         topSection.setPadding(new Insets(10));
-        topSection.setStyle("-fx-background-image: url('TopSectionBG.jpg');"
-                + " -fx-background-size: cover;"
-                + " -fx-background-position: center;");
+        topSection.getStyleClass().add("top-section");
         topSection.setAlignment(Pos.CENTER);
 
         // Personal Info
         StackPane labelContainer = new StackPane();
-        labelContainer.setStyle("-fx-background-color:rgba(255,255,255,0.7);"
-        + "-fx-border-width: 2;"
-        + "-fx-border-radius: 10;"
-        + "-fx-background-radius: 10;");
+        labelContainer.getStyleClass().add("label-container");
         labelContainer.setPadding(new Insets(5));
         labelContainer.setAlignment(Pos.CENTER);
 
         Label personalInfoLabel = new Label("Logged in as: " + username + " | Age: " + age);
-        personalInfoLabel.setStyle("-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size:16px;");
+        personalInfoLabel.getStyleClass().add("personal-info-label");
 
         labelContainer.getChildren().add(personalInfoLabel);
 

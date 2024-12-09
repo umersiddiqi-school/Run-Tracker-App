@@ -9,10 +9,12 @@ public class PageManager {
 
     private BorderPane mainLayout;
     private List<Double> bmiHistory;
+    private BodyMetricApp app;
 
-    public PageManager(BorderPane mainLayout) {
+    public PageManager(BorderPane mainLayout, BodyMetricApp app) {
         this.mainLayout = mainLayout;
         this.bmiHistory = new ArrayList<>();
+        this.app=app;
     }
     public List<Double> getBmiHistory(){
         return bmiHistory;
@@ -38,7 +40,7 @@ public class PageManager {
     }
 
     public void loadSettingsPage() {
-        mainLayout.setCenter(new SettingsPage());
+        mainLayout.setCenter(new SettingsPage(app));
     }
 }
 

@@ -29,6 +29,8 @@ public class ProgressPage extends VBox {
         setupChart();
         setupInputFields();
         setupTableView();
+
+        this.getStyleClass().add("progress-page");
     }
 
     private void setupChart() {
@@ -50,6 +52,8 @@ public class ProgressPage extends VBox {
         // Add the series to the line chart
         lineChart.getData().add(series);
 
+        lineChart.getStyleClass().add("line-chart");
+
         // Adding the chart to this VBox layout
         this.getChildren().add(lineChart);
     }
@@ -58,16 +62,20 @@ public class ProgressPage extends VBox {
         // Create input fields
         distanceField = new TextField();
         distanceField.setPromptText("Enter Distance (km)");
+        distanceField.getStyleClass().add("text-field");
 
         timeField = new TextField();
         timeField.setPromptText("Enter Time (min)");
+        timeField.getStyleClass().add("text-field");
 
         heartRateField = new TextField();
         heartRateField.setPromptText("Enter Heart Rate (bpm)");
+        heartRateField.getStyleClass().add("text-field");
 
         // Add Button
         Button addButton = new Button("Add Data");
         addButton.setOnAction(e -> addDataFromInput());
+        addButton.getStyleClass().add("button");
 
         // Layout for input fields and button
         HBox inputBox = new HBox(10, distanceField, timeField, heartRateField, addButton);
@@ -81,6 +89,7 @@ public class ProgressPage extends VBox {
         // Create TableView
         tableView = new TableView<>();
         tableView.setItems(dataEntries);
+        tableView.getStyleClass().add("table-view");
 
         // Define columns
         TableColumn<DataEntry, Double> distanceColumn = new TableColumn<>("Distance (km)");
