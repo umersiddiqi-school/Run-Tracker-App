@@ -5,6 +5,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,12 +23,15 @@ public class BMICalculatorPage extends VBox {
     private LineChart<Number, Number> bmiHistoryChart;
     private XYChart.Series<Number, Number> bmiSeries;
     private List<Double> bmiHistory;
+    private PageManager pageManager;
 
-    public BMICalculatorPage() {
+    public BMICalculatorPage(PageManager pageManager) {
+        this.pageManager = pageManager;
+
         setPadding(new Insets(10));
         setSpacing(15);
 
-        bmiHistory = new ArrayList<>();
+        bmiHistoryChart = createBMIHistoryChart();
 
         // Title
         Label bmiTitle = new Label("BMI Calculator");
@@ -51,13 +55,16 @@ public class BMICalculatorPage extends VBox {
         bmiProgressBar = new ProgressBar(0);
         bmiProgressBar.setPrefWidth(300);
 
-        // Chart to show BMI history
-        bmiHistoryChart = createBMIHistoryChart();
+        StackPane bmiChartWrapper = new StackPane();
+        bmiChartWrapper.setStyle("-fx-background-color: rgba(255,255,255,0.0);");
+        bmiChartWrapper.getChildren().add(bmiHistoryChart);
+        bmiChartWrapper.setMaxWidth(Double.MAX_VALUE);
+        bmiChartWrapper.setPrefWidth(Double.MAX_VALUE);
 
         // Set up layout
         HBox inputBox = new HBox(10, new Label("Weight (kg):"), weightField, new Label("Height (m):"), heightField);
         inputBox.setSpacing(10);
-        getChildren().addAll(bmiTitle, inputBox, calculateButton, bmiResultLabel, bmiProgressBar, bmiHistoryChart);
+        getChildren().addAll(bmiTitle, inputBox, calculateButton, bmiResultLabel, bmiProgressBar, bmiChartWrapper);
     }
 
     private void calculateBMI() {
@@ -68,9 +75,7 @@ public class BMICalculatorPage extends VBox {
             // BMI formula: weight (kg) / [height (m) * height (m)]
             double bmi = weight / (height * height);
 
-            // Store BMI and update history graph
-            bmiHistory.add(bmi);
-            updateBMIHistoryChart();
+            pageManager.addBmiEntry(bmi);
 
             // Update the result label and progress bar
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));

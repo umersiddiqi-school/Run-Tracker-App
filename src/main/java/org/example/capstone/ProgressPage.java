@@ -250,6 +250,8 @@ public class ProgressPage extends VBox {
         public XYChart.Data<Number, Number> getChartData() { return chartData; }
         public void setChartData(XYChart.Data<Number, Number> chartData) { this.chartData = chartData; }
     }
+
+
 }
 
 
