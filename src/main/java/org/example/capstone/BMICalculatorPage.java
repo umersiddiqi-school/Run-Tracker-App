@@ -36,30 +36,19 @@ public class BMICalculatorPage extends VBox {
         bmiHistoryChart = createBMIHistoryChart();
         bmiHistoryChart.getStyleClass().add("bmi-history-chart");
         bmiHistoryChart.minWidth(Double.MAX_VALUE);
-
-        // Title
         Label bmiTitle = new Label("BMI Calculator");
         bmiTitle.getStyleClass().add("bmi-title");
-
-        // Input fields for weight and height
         weightField = new TextField();
         weightField.setPromptText("Enter weight (kg)");
         weightField.getStyleClass().add("text-field");
-
         heightField = new TextField();
         heightField.setPromptText("Enter height (m)");
         heightField.getStyleClass().add("text-field");
-
-        // Button to calculate BMI
         Button calculateButton = new Button("Calculate BMI");
         calculateButton.setOnAction(e -> calculateBMI());
         calculateButton.getStyleClass().add("calculate-button");
-
-        // Label to show the BMI result
         bmiResultLabel = new Label("Your BMI will be displayed here.");
         bmiResultLabel.getStyleClass().add("bmi-result-label");
-
-        // Progress bar to indicate BMI range
         bmiProgressBar = new ProgressBar(0);
         bmiProgressBar.setPrefWidth(300);
         bmiProgressBar.getStyleClass().add("bmi-progress-bar");
@@ -71,7 +60,6 @@ public class BMICalculatorPage extends VBox {
         bmiChartWrapper.setPrefWidth(Double.MAX_VALUE);
         bmiChartWrapper.getStyleClass().add("stack-pane");
 
-        // Set up layout
         HBox inputBox = new HBox(10, new Label("Weight (kg):"), weightField, new Label("Height (m):"), heightField);
         inputBox.setSpacing(10);
         inputBox.getStyleClass().add("weight-height-input-box");
@@ -83,14 +71,12 @@ public class BMICalculatorPage extends VBox {
             double weight = Double.parseDouble(weightField.getText());
             double height = Double.parseDouble(heightField.getText());
 
-            // BMI formula: weight (kg) / [height (m) * height (m)]
             double bmi = weight / (height * height);
 
             pageManager.addBmiEntry(bmi);
 
             bmiHistory.add(bmi);
 
-            // Update the result label and progress bar
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));
             updateProgressBar(bmi);
 
@@ -104,23 +90,19 @@ public class BMICalculatorPage extends VBox {
     private void updateProgressBar(double bmi) {
         double progress;
         Color color;
-
-        // Set progress and color based on BMI ranges
         if (bmi < 18.5) {
             progress = 0.25;
-            color = Color.BLUE; // Underweight
+            color = Color.BLUE;
         } else if (bmi < 24.9) {
             progress = 0.5;
-            color = Color.GREEN; // Normal weight
+            color = Color.GREEN;
         } else if (bmi < 29.9) {
             progress = 0.75;
-            color = Color.ORANGE; // Overweight
+            color = Color.ORANGE;
         } else {
             progress = 1.0;
-            color = Color.RED; // Obesity
+            color = Color.RED;
         }
-
-        // Update progress bar
         bmiProgressBar.setProgress(progress);
         bmiProgressBar.setStyle("-fx-accent: " + toHexString(color) + ";");
     }
@@ -148,8 +130,6 @@ public class BMICalculatorPage extends VBox {
         bmiHistoryChart.getData().add(bmiSeries);
         return bmiHistoryChart;
     }
-
-    // Convert Color to Hex string for CSS
     private String toHexString(Color color) {
         return String.format("#%02X%02X%02X",
                 (int) (color.getRed() * 255),

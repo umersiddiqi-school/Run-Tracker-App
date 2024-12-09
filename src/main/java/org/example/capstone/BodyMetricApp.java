@@ -16,37 +16,28 @@ public class BodyMetricApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Top Section (Personal Information)
+
         TopSection topSection = new TopSection("John Doe", 30);
         topSection.getTopSection().getStyleClass().add("top-section");
 
-        // Sidebar Menu
         sidebarMenu = new SidebarMenu(this);
         sidebarMenu.getSidebar().getStyleClass().add("sidebar");
-
-        // Main Layout
         mainLayout = new BorderPane();
         mainLayout.setTop(topSection.getTopSection());
         mainLayout.setLeft(sidebarMenu.getSidebar());
-
-        // Page Manager (Default Home Page)
         pageManager = new PageManager(mainLayout, this);
         pageManager.loadHomePage();
 
         setTheme("light");
 
-        // Sidebar Toggle Button
         Button toggleSidebarButton = new Button("☰");
         toggleSidebarButton.getStyleClass().add("toggle-sidebar-button");
         toggleSidebarButton.setOnAction(e -> toggleSidebar());
-
-        // Place Toggle Button on Top Left
         BorderPane.setAlignment(toggleSidebarButton, javafx.geometry.Pos.TOP_LEFT);
         mainLayout.setTop(topSection.getTopSection());
         mainLayout.setLeft(sidebarMenu.getSidebar());
         mainLayout.setTop(new BorderPane(topSection.getTopSection(), null, null, null, toggleSidebarButton));
 
-        // Scene and Stage
         Scene scene = new Scene(mainLayout, 800, 600);
         primaryStage.setTitle("Run Tracker App");
         primaryStage.setScene(scene);
@@ -68,8 +59,6 @@ public class BodyMetricApp extends Application {
     public PageManager getPageManager() {
         return pageManager;
     }
-
-    // Method to toggle sidebar visibility
     private void toggleSidebar() {
         TranslateTransition transition = new TranslateTransition(Duration.millis(300), sidebarMenu.getSidebar());
 
