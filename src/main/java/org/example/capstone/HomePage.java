@@ -76,6 +76,13 @@ public class HomePage extends VBox {
         // Create line chart
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("BMI Trends");
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("BMI Data");
+
+        for(int i = 0; i < pageManager.getBmiHistory().size(); i++){
+            series.getData().add(new XYChart.Data<>(i+1, pageManager.getBmiHistory().get(i)));
+        }
+        lineChart.getData().add(series);
 
         lineChart.setLegendVisible(false);
 
@@ -83,7 +90,6 @@ public class HomePage extends VBox {
     }
 
     private PieChart createPieChart() {
-        // Create pie chart
         PieChart pieChart = new PieChart();
         pieChart.getData().addAll(
                 new PieChart.Data("Mile Run!", 25),

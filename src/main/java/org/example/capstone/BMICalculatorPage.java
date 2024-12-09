@@ -74,14 +74,12 @@ public class BMICalculatorPage extends VBox {
             double height = Double.parseDouble(heightField.getText());
 
             double bmi = weight / (height * height);
-
-            pageManager.addBmiEntry(bmi);
-
+            int userId = pageManager.getUserSession().getUserId(); // Get the current user ID
+            DbConnectivityClass.insertBMI(userId, height, weight, bmi); // Call the insertBMI method to save it in the database
             bmiHistory.add(bmi);
-
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));
             updateProgressBar(bmi);
-            updateBMIHistoryChart(); // Update the chart with the new data
+            updateBMIHistoryChart();
             loadBMIHistory();
         } catch (NumberFormatException e) {
             bmiResultLabel.setText("Please enter valid numbers for weight and height.");
@@ -120,8 +118,6 @@ public class BMICalculatorPage extends VBox {
         bmiHistory = DbConnectivityClass.getBMIHistory(userId);
         updateBMIHistoryChart();
     }
-
-
     private LineChart<Number, Number> createBMIHistoryChart() {
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Entry Number");
