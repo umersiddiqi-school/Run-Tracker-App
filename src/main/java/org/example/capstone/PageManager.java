@@ -25,27 +25,23 @@ public class PageManager {
     public void addBmiEntry(double bmi) {
         bmiHistory.add(bmi);
     }
-
     public UserSession getUserSession() {
         return userSession;
     }
-
     public void loadHomePage() {
-        mainLayout.setCenter(new HomePage(this));
+        HomePage homePage = new HomePage(this);
+        homePage.refreshPage();
+        mainLayout.setCenter(homePage);
     }
-
     public void loadBMICalculatorPage() {
         mainLayout.setCenter(new BMICalculatorPage(this));
     }
-
     public void loadMuscleTrackerPage() {
         mainLayout.setCenter(new MuscleGroupTrackerPage());
     }
-
     public void loadProgressPage() {
         mainLayout.setCenter(new ProgressPage());
     }
-
     public void loadSettingsPage() {
         mainLayout.setCenter(new SettingsPage(app));
     }

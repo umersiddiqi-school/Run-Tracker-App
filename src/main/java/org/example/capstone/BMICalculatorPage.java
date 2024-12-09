@@ -71,7 +71,6 @@ public class BMICalculatorPage extends VBox {
         bmiChartWrapper.setMaxWidth(Double.MAX_VALUE);
         bmiChartWrapper.setPrefWidth(Double.MAX_VALUE);
         bmiChartWrapper.getStyleClass().add("stack-pane");
-
         // Set up layout
         HBox inputBox = new HBox(10, new Label("Weight (kg):"), weightField, new Label("Height (m):"), heightField);
         inputBox.setSpacing(10);
@@ -84,29 +83,21 @@ public class BMICalculatorPage extends VBox {
         try {
             double weight = Double.parseDouble(weightField.getText());
             double height = Double.parseDouble(heightField.getText());
-
-            // BMI formula: weight (kg) / [height (m) * height (m)]
             double bmi = weight / (height * height);
-
-            pageManager.addBmiEntry(bmi);
-
+            int userId = pageManager.getUserSession().getUserId(); // Get the current user ID
+            DbConnectivityClass.insertBMI(userId, height, weight, bmi); // Call the insertBMI method to save it in the database
             bmiHistory.add(bmi);
-
-            // Update the result label and progress bar
             bmiResultLabel.setText(String.format("Your BMI is: %.2f", bmi));
             updateProgressBar(bmi);
-            updateBMIHistoryChart(); // Update the chart with the new data
+            updateBMIHistoryChart();
             loadBMIHistory();
         } catch (NumberFormatException e) {
             bmiResultLabel.setText("Please enter valid numbers for weight and height.");
         }
     }
-
-
     private void updateProgressBar(double bmi) {
         double progress;
         Color color;
-
         // Set progress and color based on BMI ranges
         if (bmi < 18.5) {
             progress = 0.25;
@@ -121,7 +112,6 @@ public class BMICalculatorPage extends VBox {
             progress = 1.0;
             color = Color.RED; // Obesity
         }
-
         // Update progress bar
         bmiProgressBar.setProgress(progress);
         bmiProgressBar.setStyle("-fx-accent: " + toHexString(color) + ";");
@@ -138,8 +128,6 @@ public class BMICalculatorPage extends VBox {
         bmiHistory = DbConnectivityClass.getBMIHistory(userId);
         updateBMIHistoryChart();
     }
-
-
     private LineChart<Number, Number> createBMIHistoryChart() {
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Entry Number");
@@ -156,7 +144,6 @@ public class BMICalculatorPage extends VBox {
         bmiHistoryChart.getData().add(bmiSeries);
         return bmiHistoryChart;
     }
-
     // Convert Color to Hex string for CSS
     private String toHexString(Color color) {
         return String.format("#%02X%02X%02X",
