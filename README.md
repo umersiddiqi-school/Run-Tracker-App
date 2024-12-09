@@ -1,5 +1,7 @@
 # RunnerUP
 Computer Science Advanced Programming Capstone Project
+## Video Presentation
+[![Alt Text](https://img.youtube.com/vi/1oAG0g-bWr4/0.jpg)](https://www.youtube.com/watch?v=1oAG0g-bWr4)
 ## Table of Contents
  * [Summary](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#summary)
  * [Technologies](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#technologies)
