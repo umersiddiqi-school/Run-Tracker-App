@@ -262,11 +262,14 @@
 
 .bmi-calculator-page .bmi-history-chart {
     -fx-background-color: rgba(255, 255, 255, 0.0);
+    -fx-pref-width: 100%;
+    -fx-max-width: 100%;
 }
 
 .bmi-calculator-page .stack-pane {
     -fx-max-width: 100%;
     -fx-pref-width: 100%;
+    -fx-aligment: center;
 }
 
 .progress-page {
@@ -376,4 +379,41 @@
     -fx-text-fill: white;
     -fx-padding: 5px;
     -fx-border-radius: 4px;
+}
+
+.muscle-group-tracker {
+    -fx-font-family: Arial, sans-serif;
+    -fx-padding: 20px;
+    -fx-background-color: #666666;
+}
+
+.muscle-group-tracker .label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.muscle-group-tracker .text-field {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-background-color: #666666;
+    -fx-border-radius: 5px;
+}
+
+.muscle-group-tracker .button {
+    -fx-padding: 12px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-radius: 5px;
+}
+
+.muscle-group-tracker .button:hover {
+    -fx-background-color: #45a049;
+}
+
+.muscle-group-tracker .dialog-pane {
+    -fx-background-color: #8c8c8c;
+    -fx-font-size: 14px;
 }

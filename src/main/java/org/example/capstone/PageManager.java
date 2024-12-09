@@ -32,7 +32,7 @@ public class PageManager {
     }
 
     public void loadMuscleTrackerPage() {
-        mainLayout.setCenter(new MuscleGroupTrackerPage());
+        mainLayout.setCenter(new MusclePage());
     }
 
     public void loadProgressPage() {
