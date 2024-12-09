@@ -10,9 +10,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.id = -1; // Default value, since the id will be assigned by the database
+        this.id = -1;
     }
-    // Constructor with id, for fetching from the database
     public User(String username, String password, String email, int id) {
         this.username = username;
         this.password = password;

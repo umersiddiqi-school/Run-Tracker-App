@@ -7,12 +7,10 @@ import java.sql.*;
 public class UserDao {
     private Connection connection;
 
-    // Constructor that accepts a Connection
     public UserDao(Connection connection) {
         this.connection = connection;
     }
 
-    // Method to validate login credentials
     public boolean validateLogin(String username, String password) {
         String query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -30,7 +28,6 @@ public class UserDao {
         return false;
     }
 
-    // Register a new user
     public boolean registerUser(User newUser) {
         String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -40,10 +37,9 @@ public class UserDao {
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                // Get the generated ID for the new user
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        newUser.setId(generatedKeys.getInt(1)); // Set the ID for the new user object
+                        newUser.setId(generatedKeys.getInt(1));
                     }
                 }
                 return true;
@@ -54,7 +50,6 @@ public class UserDao {
         return false;
     }
 
-    // Add a method to get a user by username in UserDao
     public User getUserByUsername(String username) {
         String query = "SELECT id, username, email FROM users WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -63,7 +58,7 @@ public class UserDao {
                 if (resultSet.next()) {
                     int userId = resultSet.getInt("id");
                     String email = resultSet.getString("email");
-                    return new User(username, "", email, userId); // Assuming User constructor can handle this
+                    return new User(username, "", email, userId);
                 }
             }
         } catch (SQLException e) {

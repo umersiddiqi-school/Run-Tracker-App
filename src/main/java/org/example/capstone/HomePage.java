@@ -46,19 +46,20 @@ public class HomePage extends VBox {
         // Add the home title at the top and the homeVbox below
         getChildren().add(homeVbox);
 
-        // Load the BMI history for the current user
+        // Initially load the BMI history
+        loadBMIHistory();
+    }
+
+    public void refreshPage() {
+        lineChart.getData().clear();
         loadBMIHistory();
     }
 
     private void loadBMIHistory() {
-        // Fetch BMI history from the database for the current user
         int userId = pageManager.getUserSession().getUserId();
         List<Double> bmiHistory = DbConnectivityClass.getBMIHistory(userId);
-
-        // Update the line chart with the fetched data
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         series.setName("BMI Data");
-
         for (int i = 0; i < bmiHistory.size(); i++) {
             series.getData().add(new XYChart.Data<>(i + 1, bmiHistory.get(i)));
         }
