@@ -10,7 +10,7 @@ public class TopSection {
 
     private HBox topSection;
 
-    public TopSection(String username) {
+    public TopSection(String username, int age) {
         topSection = new HBox();
         topSection.setPadding(new Insets(10));
         topSection.getStyleClass().add("top-section");

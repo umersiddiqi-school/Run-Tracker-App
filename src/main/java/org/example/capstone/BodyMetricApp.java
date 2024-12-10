@@ -21,7 +21,7 @@ public class BodyMetricApp extends Application {
         String username = userSession.getUserName();
         int userId = userSession.getUserId();
         // Top Section (Personal Information)
-        TopSection topSection = new TopSection(username);
+        TopSection topSection = new TopSection(username, 30);
         topSection.getTopSection().getStyleClass().add("top-section");
 
         sidebarMenu = new SidebarMenu(this);
@@ -29,9 +29,7 @@ public class BodyMetricApp extends Application {
         mainLayout = new BorderPane();
         mainLayout.setTop(topSection.getTopSection());
         mainLayout.setLeft(sidebarMenu.getSidebar());
-        // Page Manager (Default Home Page)
         pageManager = new PageManager(mainLayout, this, userSession);
-        pageManager = new PageManager(mainLayout, this);
         pageManager.loadHomePage();
         setTheme("light");
 
