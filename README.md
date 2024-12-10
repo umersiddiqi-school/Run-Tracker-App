@@ -149,16 +149,5 @@ This page allows for the user to alter specific settings to better enhance their
 
 **https://www.figma.com/design/8rDLobYnmijkI7UxDFUUQN/Untitled?node-id=0-1&t=SnD5zA7qMu0PpZvz-1**
 
-## To-Do
-
-**Home Page**
-* Create a user-friendly page that quickly shows progression and overall information.
-
-**Settings**
-* Allow for the user to clear their information, reset their password, allow for multiple themes, and enable / disable notifications.
-
-**Muscle Training Page**
-* Having accessible information for muscle training for the user to go through. 
-* This can be done with videos, text, or other methods.
 
 
