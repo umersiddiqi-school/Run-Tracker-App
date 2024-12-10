@@ -127,8 +127,6 @@ This page allows the user to insert data regarding different muscle groups that 
 
 This page allows for the user to alter specific settings to better enhance their experience.
 
-[Update here regarding specific methods once they are finished]
-
 ## Credits
 
 **Umer Siddiqi**
