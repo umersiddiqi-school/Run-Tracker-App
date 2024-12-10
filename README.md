@@ -14,7 +14,7 @@ Computer Science Advanced Programming Capstone Project
     * [Login/Register Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#loginregister-page)
     * [Home Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#home-page)
     * [BMI Calculator Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#bmi-calculator-page)
-    * [Health Analysis Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#health-analysis-page)
+    * [Muscle Group Tracker Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#musle-group-tracker-page)
     * [Progress Tracker Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#progress-tracker-page)
     * [Settings Page](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#settings-page)
 * [Credits](https://github.com/umersiddiqi-school/Run-Tracker-App/blob/main/README.md#credits)
@@ -87,7 +87,7 @@ If the user is not already registered with the program, the user can select the 
 
 ![Alt text](src/main/resources/home_page.png)
 
-Once the user has logged in, the main window appears with a sidebar to navigate to the BMI Calculator, Progress Tracker, Health Analysis, and Settings pages.
+Once the user has logged in, the main window appears with a sidebar to navigate to the BMI Calculator, Progress Tracker, Muscle Group Tracker, and Settings pages.
 
 Additionally, the home page will show the user an overview of previously inputted information from past sessions. 
 
@@ -116,6 +116,8 @@ The **setUpChart** method creates a LineChart using the running data inputted by
 The **addDataFromInput** method takes the data entered into the corresponding TextFields and adds it to a TableView object.
 
 ### Muscle Group Tracker Page
+
+![Alt text](src/main/resources/musclegrouptrackerpage.png)
 
 This page allows the user to insert data regarding different muscle groups that they would like to track. The page saves the data to the database so that they can view their progress over time.
 
