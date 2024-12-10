@@ -75,7 +75,6 @@ Upon running the applications, users are displayed a splash screen featuring the
 
 The user will be prompted to enter their username and password into the login field. The users information will be saved automatically in our Azure database and reused when opened again in the future. 
 
-*This look will be changed before the final submission*
 
 **Register**
 
@@ -83,7 +82,6 @@ The user will be prompted to enter their username and password into the login fi
 
 If the user is not already registered with the program, the user can select the register button and create their account with a username and password (with password confirmation).
 
-*This look will be changed before the final submission*
 
 ### Home Page
 
@@ -116,6 +114,10 @@ This page allows the user to input their running data. Users can input the dista
 The **setUpChart** method creates a LineChart using the running data inputted by the user and displays it on the screen.
 
 The **addDataFromInput** method takes the data entered into the corresponding TextFields and adds it to a TableView object.
+
+### Muscle Group Tracker Page
+
+This page allows the user to insert data regarding different muscle groups that they would like to track. The page saves the data to the database so that they can view their progress over time.
 
 ### Settings Page
 
